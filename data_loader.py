@@ -1,31 +1,33 @@
 import streamlit as st
 import pandas as pd
 import os
+import gdown
 
 @st.cache_data(show_spinner=False)
 def load_data():
-    here     = os.path.dirname(__file__)
-    zip_name = "data/combined_output.zip" 
-    zip_path = os.path.join(here, zip_name)
+    # 1) Google Drive file ID
+    file_id = "1_uCyJOFCmVoEj7Wc_Z_PE4Z9iuUe6e2BX"
+    url     = f"https://drive.google.com/uc?id={file_id}"
+    output  = "combined_output.csv"
 
-    # DEBUG
-    st.write(f"🔍 Looking for ZIP at: `{zip_path}`")
-    st.write(f"🗂️  Files in this folder: {os.listdir(here)}")
-    if not os.path.exists(zip_path):
-        st.error(f"❌ ZIP file *not* found at that path!")
-        raise FileNotFoundError(f"Could not find {zip_name} in {here}")
+    # 2) Download only if not already present
+    if not os.path.exists(output):
+        gdown.download(url, output, quiet=False)
 
-    st.write("✅ ZIP found, loading now…")
-    df = pd.read_csv(zip_path, compression="zip")
+    # 3) Read the CSV
+    df = pd.read_csv(output)
 
+    # 4) Rebuild your datetime column
     if {"year","month","day","hour"}.issubset(df.columns):
         df["date"] = pd.to_datetime(
             df[["year","month","day","hour"]]
-              .astype(str)
-              .agg("-", axis=1),
+              .astype(str).agg("-", axis=1),
             format="%Y-%m-%d-%H"
         )
+
     return df
+
+
 
 
 
