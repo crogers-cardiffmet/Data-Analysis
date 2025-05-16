@@ -7,7 +7,14 @@ from sklearn.metrics            import mean_squared_error, r2_score
 import numpy as np
 from data_loader import load_data
 
-df = load_data()    
+df = load_data()
+ext_ints = [
+        c for c in df.columns
+        if pd.api.types.is_integer_dtype(df[c].dtype) and df[c].isnull().any()
+    ]
+    for col in ext_ints:
+        df[col] = df[col].astype("float64")
+        
 features = ['PM10','SO2','NO2','CO','O3']
 X = df[features].fillna(df[features].median())
 y = df['PM2.5'].fillna(df['PM2.5'].median())
