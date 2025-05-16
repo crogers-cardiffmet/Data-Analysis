@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
 import requests
-st.set_option("dataframe.experimental_use_pyarrow", False)
 
 from data_loader import load_data
 from sklearn.metrics import mean_squared_error, r2_score
@@ -61,7 +60,7 @@ def app():
 
     # Snapshot
     st.subheader("Data Snapshot")
-    st.dataframe(df.head())
+    st.table(df.head())
     st.write(f"Rows: {df.shape[0]}, Columns: {df.shape[1]}")
 
     # 2) Testing
@@ -90,7 +89,7 @@ def app():
 
     # Actual vs. predicted
     st.subheader("Actual vs. Predicted PM2.5")
-    comp = pd.DataFrame({"Actual": y_test, "Predicted": y_pred})
+    comp = pd.table({"Actual": y_test, "Predicted": y_pred})
     st.line_chart(comp.reset_index(drop=True))
 
     # Residuals
