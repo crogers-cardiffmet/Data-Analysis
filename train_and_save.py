@@ -50,3 +50,9 @@ joblib.dump(scaler,     "scaler.pkl")
 X_test.to_csv("X_test.csv", index=False)
 y_test.to_csv("y_test.csv", index=False)
 
+s3 = boto3.client("s3")
+BUCKET = "rf-model-cardiff"  
+
+for local_path in [MODEL_PATH, SCALER_PATH, XTEST_PATH, YTEST_PATH]:
+    s3.upload_file(local_path, BUCKET, local_path)
+    print(f"Uploaded {local_path} → s3://{BUCKET}/{local_path}")
