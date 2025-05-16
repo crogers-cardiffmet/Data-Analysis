@@ -4,6 +4,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+st.set_option("dataframe.experimental_use_pyarrow", False)
 from data_loader import load_data
 
 # Defining wind direction order for consistency
