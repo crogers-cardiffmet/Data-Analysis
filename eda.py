@@ -4,7 +4,6 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-st.set_option("dataframe.experimental_use_pyarrow", False)
 from data_loader import load_data
 
 # Defining wind direction order for consistency
@@ -23,7 +22,7 @@ def app():
         df[col] = df[col].astype("float64")
 
     st.subheader("Sample & Shape")
-    st.dataframe(df.head())
+    st.table(df.head())
     st.write(f"Rows: {df.shape[0]}, Columns: {df.shape[1]}")
 
     
