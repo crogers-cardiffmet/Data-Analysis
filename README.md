@@ -1,2 +1,2 @@
 # Air Data Analysis
-Programming for Data Analysis Course 
+Programming for Data Analysis Course Project
