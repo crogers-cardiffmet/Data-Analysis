@@ -1,5 +1,3 @@
-# data_loader.py
-
 import streamlit as st
 import pandas as pd
 import os
@@ -7,7 +5,7 @@ import os
 @st.cache_data(show_spinner=False)
 def load_data():
     here     = os.path.dirname(__file__)
-    zip_name = "combined_output.zip"           # or "data/combined_output.zip" if you placed it in a data/ subfolder
+    zip_name = "data/combined_output.zip" 
     zip_path = os.path.join(here, zip_name)
 
     # DEBUG
