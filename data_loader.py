@@ -4,7 +4,7 @@ import pandas as pd
 
 @st.cache_data(show_spinner=False)
 def load_data():
-    url = "https://my-air-quality-data.s3.us-east-1.amazonaws.com/combined_output.csv"
+    url = "https://air-quality-data-cardiff.s3.eu-north-1.amazonaws.com/combined_output+(1).csv"
     
     fn = "combined_output.csv"
     if not os.path.exists(fn):
