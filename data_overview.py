@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+st.set_option("dataframe.experimental_use_pyarrow", False)
 from data_loader import load_data 
 
 def app():
