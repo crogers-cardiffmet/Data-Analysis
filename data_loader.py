@@ -13,15 +13,13 @@ def load_data():
     else:
         df = pd.read_csv(fn)
 
-    if {"year","month","day","hour"}.issubset(df.columns):
-        df["date"] = pd.to_datetime(
-            df[["year","month","day","hour"]]
-              .astype(str)
-              .agg("-", axis=1),
-            format="%Y-%m-%d-%H"
+    if {'year','month','day','hour'}.issubset(df.columns):
+        df['date'] = pd.to_datetime(
+            df[['year','month','day','hour']].astype(str)
+              .apply(lambda row: '-'.join(row), axis=1),
+            format='%Y-%m-%d-%H'
         )
     return df
-
 
 
 
