@@ -6,7 +6,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import mean_squared_error, r2_score
-from data_loader import load_data
+
+@st.cache_data
+def load_data(path="combined_output.csv"):
+    df = pd.read_csv(path)
+    if {'year','month','day','hour'}.issubset(df.columns):
+        df['date'] = pd.to_datetime(
+            df[['year','month','day','hour']].astype(str).agg('-'.join, axis=1),
+            format='%Y-%m-%d-%H'
+        )
+    return df 
 
 @st.cache_resource
 def load_model_and_scaler():
