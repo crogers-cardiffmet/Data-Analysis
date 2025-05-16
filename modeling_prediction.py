@@ -23,7 +23,18 @@ def load_test_set():
 def app():
     st.title("Modeling & Prediction")
 
-    df      = load_data()
+    df = load_data()
+
+    ext_ints = [
+        c for c in df.columns
+        if pd.api.types.is_integer_dtype(df[c].dtype) and df[c].isnull().any()
+    ]
+    for col in ext_ints:
+        df[col] = df[col].astype("float64")
+        
+    st.subheader("Sample & Shape")
+    st.dataframe(df.head())
+    st.write(f"Rows: {df.shape[0]}, Columns: {df.shape[1]}")
     rf, sc  = load_model_and_scaler()
     X_test, y_test = load_test_set()  
 
