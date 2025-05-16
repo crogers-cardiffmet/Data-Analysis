@@ -14,14 +14,14 @@ def load_data():
         df = pd.read_csv(fn)
 
     if {"year","month","day","hour"}.issubset(df.columns):
-    df["month2"] = df["month"].astype(int).astype(str).str.zfill(2)
-    df["day2"]   = df["day"].astype(int).astype(str).str.zfill(2)
-    df["hour2"]  = df["hour"].astype(int).astype(str).str.zfill(2)
-    df["date_str"] = (
-        df["year"].astype(str) + "-" +
-        df["month2"]             + "-" +
-        df["day2"]               + "T" +
-        df["hour2"] + ":00:00"
+        df["month2"] = df["month"].astype(int).astype(str).str.zfill(2)
+        df["day2"]   = df["day"].astype(int).astype(str).str.zfill(2)
+        df["hour2"]  = df["hour"].astype(int).astype(str).str.zfill(2)
+        df["date_str"] = (
+            df["year"].astype(str) + "-" +
+            df["month2"]             + "-" +
+            df["day2"]               + "T" +
+            df["hour2"] + ":00:00"
     )
     df["date"] = pd.to_datetime(df["date_str"], format="%Y-%m-%dT%H:%M:%S")
 
