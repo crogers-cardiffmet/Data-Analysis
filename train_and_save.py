@@ -5,9 +5,10 @@ from sklearn.ensemble           import RandomForestRegressor
 from sklearn.preprocessing      import StandardScaler
 from sklearn.metrics            import mean_squared_error, r2_score
 import numpy as np
+from data_loader import load_data
 
 # 1. Load and prep data
-df = pd.read_csv("combined_output.csv")
+df = load_data()
 features = ['PM10','SO2','NO2','CO','O3']
 X = df[features].fillna(df[features].median())
 y = df['PM2.5'].fillna(df['PM2.5'].median())
