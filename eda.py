@@ -4,12 +4,20 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-from data_loader import load_data
-
+  
 # Defining wind direction order for consistency
 wind_dir_order = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
                   'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
 
+@st.cache_data
+def load_data(path="combined_output.csv"):
+    df = pd.read_csv(path)
+    if {'year','month','day','hour'}.issubset(df.columns):
+        df['date'] = pd.to_datetime(
+            df[['year','month','day','hour']].astype(str).agg('-'.join, axis=1),
+            format='%Y-%m-%d-%H'
+        )
+    return df 
 
 def app():
     st.title("Exploratory Data Analysis")
