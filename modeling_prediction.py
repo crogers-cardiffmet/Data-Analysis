@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
 import requests
+st.set_option("dataframe.experimental_use_pyarrow", False)
 
 from data_loader import load_data
 from sklearn.metrics import mean_squared_error, r2_score
