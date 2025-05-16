@@ -10,6 +10,17 @@ def app():
     st.title("Data Overview")
     df = load_data()
 
+    ext_ints = [
+        c for c in df.columns
+        if pd.api.types.is_integer_dtype(df[c].dtype) and df[c].isnull().any()
+    ]
+    for col in ext_ints:
+        df[col] = df[col].astype("float64")
+
+    st.subheader("Sample & Shape")
+    st.dataframe(df.head())
+    st.write(f"Rows: {df.shape[0]}, Columns: {df.shape[1]}")
+
     # Basic info
     st.subheader("Sample & Shape")
     st.dataframe(df.head())
