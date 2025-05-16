@@ -5,9 +5,17 @@ from sklearn.ensemble           import RandomForestRegressor
 from sklearn.preprocessing      import StandardScaler
 from sklearn.metrics            import mean_squared_error, r2_score
 import numpy as np
-from data_loader import load_data
 
-# 1. Load and prep data
+@st.cache_data
+def load_data(path="combined_output.csv"):
+    df = pd.read_csv(path)
+    if {'year','month','day','hour'}.issubset(df.columns):
+        df['date'] = pd.to_datetime(
+            df[['year','month','day','hour']].astype(str).agg('-'.join, axis=1),
+            format='%Y-%m-%d-%H'
+        )
+    return df 
+
 df = load_data()
 features = ['PM10','SO2','NO2','CO','O3']
 X = df[features].fillna(df[features].median())
