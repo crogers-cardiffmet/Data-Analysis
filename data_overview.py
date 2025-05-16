@@ -4,7 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-st.set_option("dataframe.experimental_use_pyarrow", False)
 from data_loader import load_data 
 
 def app():
@@ -19,12 +18,12 @@ def app():
         df[col] = df[col].astype("float64")
 
     st.subheader("Sample & Shape")
-    st.dataframe(df.head())
+    st.table(df.head()) 
     st.write(f"Rows: {df.shape[0]}, Columns: {df.shape[1]}")
 
     # Basic info
     st.subheader("Sample & Shape")
-    st.dataframe(df.head())
+    st.table(df.head()) 
     st.write(f"Rows: {df.shape[0]}, Columns: {df.shape[1]}")
 
     # Date filter
@@ -37,7 +36,7 @@ def app():
         mask = (df['date'].dt.date >= min_date) & (df['date'].dt.date <= max_date)
         df_filtered = df.loc[mask]
         st.write(f"Showing {df_filtered.shape[0]} rows between {min_date} and {max_date}")
-        st.dataframe(df_filtered.head())
+        st.table(df_filtered.head())
 
     # Show missing values 
     st.subheader("Missing Values")
@@ -45,7 +44,7 @@ def app():
         'count': df.isna().sum(),
         '%': 100*df.isna().mean()
     }).query("count>0")
-    st.dataframe(missing.style.background_gradient("Reds"))
+    st.table(missing.style.background_gradient("Reds"))
     st.subheader("Data types")
     st.write(df.dtypes)
 
