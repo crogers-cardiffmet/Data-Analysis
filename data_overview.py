@@ -1,19 +1,10 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-@st.cache_data
-def load_data(path="combined_output.csv"):
-    df = pd.read_csv(path)
-    if {'year','month','day','hour'}.issubset(df.columns):
-        df['date'] = pd.to_datetime(
-            df[['year','month','day','hour']].astype(str).agg('-'.join, axis=1),
-            format='%Y-%m-%d-%H'
-        )
-    return df
+from data_loader import load_data 
 
 def app():
     st.title("Data Overview")
